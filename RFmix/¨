@@ -1,0 +1,25 @@
+FROM ubuntu:14.04.5
+
+RUN apt-get update -y && apt-get upgrade -y &&  apt-get install -y --no-install-recommends \
+        g++ \
+        gcc \
+        gfortran \
+        libbz2-dev \
+        libcurl4-openssl-dev \
+        liblzma-dev \
+        libncurses5-dev \
+        libpcre3-dev \
+        libreadline-dev \
+        libssl-dev \
+        make \
+        python-dev \
+        zlib1g-dev \
+        wget \
+        dh-autoreconf \
+&& rm -rf /var/lib/apt/lists/*
+
+
+RUN wget --no-check-certificate  https://github.com/Hammarn/rfmix/archive/v2-snapshot.tar.gz && tar -zxvf v2-snapshot.tar.gz 
+RUN cd rfmix-2-snapshot && autoreconf --force --install && ./configure &&  make
+
+
